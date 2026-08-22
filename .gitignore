@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+*.parquet
+*.h5
+*.feather
+*.pkl
+empirical/data/
+raw_data/
+cache/
