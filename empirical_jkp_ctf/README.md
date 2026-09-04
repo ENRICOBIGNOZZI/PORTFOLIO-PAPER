@@ -83,6 +83,8 @@ def main(chars, features, daily_ret) -> pd.DataFrame
 
 signature and returns `id, eom, w`. It uses a fixed, conservative Matérn-3/2 specification and only trailing observations. It is included as a reproducible bridge to the leaderboard; **no leaderboard performance claim is made until the model has actually been run/scored by the CTF pipeline**.
 
+The code is tested under Python 3.13, matching the current CTF execution environment. The current rules snapshot used for implementation was checked on 2026-09-04 (rules last updated by JKP on 2026-09-03). A same-day public-leaderboard benchmark snapshot is stored in `leaderboard_snapshot_2026-09-04.csv`; it is for ex-post comparison only and is not used for tuning.
+
 ## Data citation
 
 Use the JKP citation requested by the data provider:
