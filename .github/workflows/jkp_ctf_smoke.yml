@@ -25,7 +25,7 @@ jobs:
         run: python -m pip install --upgrade pip numpy pandas pyarrow scipy matplotlib
       - name: Run paper-path smoke test
         working-directory: empirical_jkp_ctf
-        run: python tests/test_smoke.py
+        run: PYTHONPATH=. python tests/test_smoke.py
       - name: Compile CTF submission
         run: python -m py_compile empirical_jkp_ctf/ctf_submission_matern.py
       - name: Static CTF security checks
