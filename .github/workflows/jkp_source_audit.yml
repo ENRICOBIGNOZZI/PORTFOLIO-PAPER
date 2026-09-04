@@ -1,0 +1,56 @@
+name: JKP public-source audit
+on:
+  push:
+    branches: [research/jkp-practical-learnability]
+    paths: [.github/workflows/jkp_source_audit.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 pandas openpyxl pyarrow
+      - name: Inspect official download page and data resources
+        run: |
+          python - <<'PY'
+          import requests, re, json, hashlib
+          from pathlib import Path
+          from urllib.parse import urljoin
+          from bs4 import BeautifulSoup
+          import pandas as pd
+          out=Path('jkp_source_audit');out.mkdir(exist_ok=True)
+          base='https://jkpfactors.com/data'
+          res=requests.get(base,timeout=60);res.raise_for_status()
+          (out/'data.html').write_text(res.text)
+          soup=BeautifulSoup(res.text,'html.parser')
+          scripts=[urljoin(base,s['src']) for s in soup.find_all('script',src=True)]
+          print('SCRIPTS',json.dumps(scripts))
+          for i,url in enumerate(scripts):
+            if 'jkpfactors.com' not in url: continue
+            rr=requests.get(url,timeout=60);rr.raise_for_status()
+            (out/f'script_{i}.js').write_text(rr.text)
+            print('\nSOURCE',url)
+            for line in rr.text.splitlines():
+              if any(x in line.lower() for x in ['s3.amazonaws','csv','parquet','fetch(','download','manifest','factor_details','cluster','theme']):
+                print(line[:1000])
+          meta='https://raw.githubusercontent.com/bkelly-lab/jkp-data/main/src/jkp/data/resources/factor_details.xlsx'
+          rr=requests.get(meta,timeout=60);rr.raise_for_status();(out/'factor_details.xlsx').write_bytes(rr.content)
+          xl=pd.ExcelFile(out/'factor_details.xlsx');print('SHEETS',xl.sheet_names)
+          for name in xl.sheet_names:
+            df=pd.read_excel(xl,sheet_name=name);df.to_csv(out/('factor_details_'+re.sub(r'[^A-Za-z0-9]','_',name)+'.csv'),index=False)
+            print('METADATA',name,df.shape,df.columns.tolist());print(df.head(4).to_string(index=False))
+          for path in Path('.').glob('empirical_jkp_ctf/*.py'):
+            (out/path.name).write_text(path.read_text())
+          (out/'repo_readme.md').write_text(Path('README.md').read_text())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jkp-official-source-audit
+          path: jkp_source_audit/
+          retention-days: 14
