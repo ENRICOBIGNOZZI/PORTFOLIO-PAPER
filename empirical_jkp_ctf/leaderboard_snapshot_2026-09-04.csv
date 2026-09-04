@@ -1,0 +1,8 @@
+rank,model,kind,sharpe,annual_return,volatility,max_drawdown,source_date
+1,Coupled Factor Portfolio,submission,3.3656,0.3366,0.1000,-0.0816,2026-09-04
+11,MAXSER,submission,2.0261,0.2026,0.1000,-0.1323,2026-09-04
+12,Benchmark: Instrumented PCA factor portfolio,benchmark,1.9481,0.1948,0.1000,-0.0992,2026-09-04
+16,Benchmark: Kozak-Nagel-Santosh rank-weighted factors portfolio,benchmark,1.4195,0.1420,0.1000,-0.0812,2026-09-04
+28,Benchmark: Factor-ML,benchmark,0.7442,0.0744,0.1000,-0.3594,2026-09-04
+38,Benchmark: Equal-weight portfolio,benchmark,0.4912,0.0491,0.1000,-0.3374,2026-09-04
+39,Benchmark: Minimum Variance,benchmark,0.4731,0.0473,0.1000,-0.3419,2026-09-04
