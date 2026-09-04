@@ -13,3 +13,9 @@ The common DGP is a persistent conditional factor economy with one observed stat
 Key state-dimension estimates: `d=1`: 0.879 vs theory 0.857; `d=2`: 0.760 vs 0.750; `d=3`: 0.671 vs 0.667.
 
 Run `python run_symmetric_paper_mc.py --jobs 3` for the symmetric rate layer or `python run_final_paper_mc.py --jobs 3` for the full Monte Carlo pipeline.
+
+## Simulated complexity figures
+
+`simulated_complexity_figures.py` generates the paper-facing illustrations for the finite-sample complexity mechanism: regret decomposition, oracle versus learned Sharpe, the complexity scaling law, in-sample versus out-of-sample Sharpe, and nominal versus effective complexity.
+
+Run `python simulated_complexity_figures.py --quick` for a smoke test or `python simulated_complexity_figures.py --reps 2500` for the full version. Publication-ready PDF/PNG/SVG outputs are written to `figures_simulated/`; the same directory contains committed SVG previews and a figure-by-figure README.
