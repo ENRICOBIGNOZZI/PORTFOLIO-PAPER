@@ -1,0 +1,37 @@
+name: JKP CTF smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'empirical_jkp_ctf/**'
+      - '.github/workflows/jkp_ctf_smoke.yml'
+  pull_request:
+    paths:
+      - 'empirical_jkp_ctf/**'
+      - '.github/workflows/jkp_ctf_smoke.yml'
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install runtime dependencies
+        run: python -m pip install --upgrade pip numpy pandas pyarrow scipy matplotlib
+      - name: Run paper-path smoke test
+        working-directory: empirical_jkp_ctf
+        run: python tests/test_smoke.py
+      - name: Compile CTF submission
+        run: python -m py_compile empirical_jkp_ctf/ctf_submission_matern.py
+      - name: Static CTF security checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          f=empirical_jkp_ctf/ctf_submission_matern.py
+          ! grep -En '(^|[^A-Za-z])(requests|urllib|socket|subprocess|os\.system|os\.popen|eval|exec|compile)\b' "$f"
+          grep -F 'def main(chars: pd.DataFrame, features: pd.DataFrame, daily_ret: pd.DataFrame) -> pd.DataFrame:' "$f"
