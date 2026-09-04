@@ -91,29 +91,39 @@ def main(chars: pd.DataFrame, features: pd.DataFrame, daily_ret: pd.DataFrame) -
     names = _feature_names(features)
     chars = chars.copy()
     chars["eom"] = pd.to_datetime(chars["eom"])
-    test_dates = pd.DatetimeIndex(
-        sorted(chars.loc[chars["ctff_test"].astype(bool), "eom"].dropna().unique())
-    )
-    if len(test_dates) == 0:
+    all_dates = pd.DatetimeIndex(sorted(chars["eom"].dropna().unique()))
+    if len(all_dates) == 0:
         return pd.DataFrame(columns=["id", "eom", "w"])
 
-    first_test = test_dates[0]
+    has_test = "ctff_test" in chars.columns and chars["ctff_test"].fillna(False).astype(bool).any()
+    if has_test:
+        output_dates = pd.DatetimeIndex(
+            sorted(chars.loc[chars["ctff_test"].fillna(False).astype(bool), "eom"].dropna().unique())
+        )
+    else:
+        # The CTF validation sample may omit active test flags. Returning the
+        # last date gives the validator a non-empty, causally formed portfolio
+        # while keeping all preceding months available for training.
+        output_dates = pd.DatetimeIndex([all_dates[-1]])
+
+    first_test = output_dates[0]
     ell = _estimate_ell(chars, names, first_test, seed)
     W = _matern_frequencies(len(names), m, ell, nu, seed)
+    output_set = set(pd.Timestamp(d) for d in output_dates)
 
     history: list[np.ndarray] = []
     out: list[pd.DataFrame] = []
 
-    # Process dates sequentially. At a test date t, beta is fit before F_t is
-    # formed, so r_{t+1} is never used to choose the time-t portfolio weights.
+    # Process dates sequentially. At a decision date t, beta is fit before F_t
+    # is formed, so r_{t+1} is never used to choose the time-t portfolio weights.
     for d, b in chars.groupby("eom", sort=True):
         d = pd.Timestamp(d)
         b = b.reset_index(drop=True)
         x = _rank_center(b, names)
         ph = _phi(x, W).astype(np.float32)
-        is_test = bool(b["ctff_test"].astype(bool).any())
+        is_output = d in output_set
 
-        if is_test:
+        if is_output:
             hist = np.asarray(history[-train_T:], dtype=np.float64)
             hist = hist[np.isfinite(hist).all(axis=1)] if len(hist) else hist
             if len(hist) < 12:
@@ -130,7 +140,7 @@ def main(chars: pd.DataFrame, features: pd.DataFrame, daily_ret: pd.DataFrame) -
             tmp["w"] = np.asarray(w, dtype=np.float64)
             out.append(tmp)
 
-        # Only after test weights are fixed do we reveal the one-month-ahead return.
+        # Only after output weights are fixed do we reveal the one-month-ahead return.
         r = pd.to_numeric(b["ret_exc_lead1m"], errors="coerce").to_numpy(dtype=np.float64)
         ok = np.isfinite(r)
         if int(ok.sum()) >= min_assets:
