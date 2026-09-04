@@ -109,7 +109,7 @@ def _rank_center_month(block: pd.DataFrame, feature_names: list[str]) -> np.ndar
     else:
         ranked = raw.rank(axis=0, method="average", pct=True)
     zero = raw.eq(0).to_numpy(copy=False)
-    x = ranked.to_numpy(dtype=np.float32, copy=False)
+    x = ranked.to_numpy(dtype=np.float32, copy=True)
     x -= np.float32(0.5)
     # Match the CTF factor-ML convention: exact raw zeros remain a special value.
     x[zero] = np.float32(-0.5)

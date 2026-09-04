@@ -28,7 +28,7 @@ def _rank_center(block: pd.DataFrame, names: list[str]) -> np.ndarray:
     else:
         ranked = raw.rank(axis=0, method="average", pct=True)
     zero = raw.eq(0).to_numpy(copy=False)
-    x = ranked.to_numpy(dtype=np.float32, copy=False)
+    x = ranked.to_numpy(dtype=np.float32, copy=True)
     x -= np.float32(0.5)
     x[zero] = np.float32(-0.5)
     np.nan_to_num(x, copy=False, nan=0.0, posinf=0.0, neginf=0.0)
