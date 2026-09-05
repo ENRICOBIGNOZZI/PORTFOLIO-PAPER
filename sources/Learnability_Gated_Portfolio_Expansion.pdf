@@ -1,0 +1,346 @@
+%PDF-1.4
+%ABCD ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R /F3 4 0 R /F4 5 0 R /F5 7 0 R /F6 11 0 R 
+  /F7 12 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Times-Roman /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/BaseFont /Times-Bold /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+>>
+endobj
+5 0 obj
+<<
+/BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
+>>
+endobj
+6 0 obj
+<<
+/Contents 17 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 16 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+7 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F5 /Subtype /Type1 /Type /Font
+>>
+endobj
+8 0 obj
+<<
+/Contents 18 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 16 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+9 0 obj
+<<
+/Contents 19 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 16 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+10 0 obj
+<<
+/Contents 20 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 16 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+11 0 obj
+<<
+/BaseFont /Times-Italic /Encoding /WinAnsiEncoding /Name /F6 /Subtype /Type1 /Type /Font
+>>
+endobj
+12 0 obj
+<<
+/BaseFont /Times-BoldItalic /Encoding /WinAnsiEncoding /Name /F7 /Subtype /Type1 /Type /Font
+>>
+endobj
+13 0 obj
+<<
+/Contents 21 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 16 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+14 0 obj
+<<
+/PageMode /UseNone /Pages 16 0 R /Type /Catalog
+>>
+endobj
+15 0 obj
+<<
+/Author (Enrico Bignozzi, Patrick Gagliardini, Paul Schneider) /CreationDate (D:20000101000000+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20000101000000+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (\(unspecified\)) /Title (Learnability-Gated Portfolio Expansion) /Trapped /False
+>>
+endobj
+16 0 obj
+<<
+/Count 5 /Kids [ 6 0 R 8 0 R 9 0 R 10 0 R 13 0 R ] /Type /Pages
+>>
+endobj
+17 0 obj
+<<
+/Length 5426
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.466667 .466667 .466667 RG
+.4 w
+n 56.69291 806.4567 m 538.5827 806.4567 l S
+BT /F2 8 Tf 9.6 TL ET
+0 0 0 rg
+BT 1 0 0 1 56.69291 811.4567 Tm (PORTFOLIO - Research Note) Tj T* ET
+BT 1 0 0 1 486.3667 811.4567 Tm (September 2026) Tj T* ET
+BT /F2 8 Tf 9.6 TL ET
+BT 1 0 0 1 295.6378 22.67717 Tm (1) Tj T* ET
+Q
+q
+1 0 0 1 62.69291 753.3622 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 3 Tm /F3 20 Tf 23 TL 64.37488 0 Td (Learnability-Gated Portfolio Expansion) Tj T* -64.37488 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 734.3622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL 71.79288 0 Td (A practical portfolio algorithm implied by the law of portfolio learnability) Tj T* -71.79288 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 705.3622 cm
+q
+BT 1 0 0 1 0 15 Tm 139.5809 0 Td 12 TL /F2 9 Tf 0 0 0 rg (Enrico Bignozzi, Patrick Gagliardini, Paul Schneider) Tj  T* 36.87748 0 Td (Research note - September 2026) Tj T* -176.4584 0 Td ET
+Q
+Q
+q
+1 0 0 1 60.69291 631.3622 cm
+q
+.945098 .956863 .968627 rg
+n 0 62 473.8898 -62 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 7 cm
+q
+BT 1 0 0 1 0 38.7 Tm 12 TL /F3 9.3 Tf 0 0 0 rg (Core idea.) Tj /F2 9.3 Tf ( Keep a broad but admissible library of candidate signals. Do not rank them one by one and do not admit them) Tj T* (with a binary gate. First remove the part already spanned by the current portfolio. Then regularize the residual) Tj T* (managed-payoff directions according to how strongly the available return history identifies them. The output is one) Tj T* (portfolio plus a transparent measure of how much incremental decision complexity the data support.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.713725 .745098 .784314 RG
+.5 w
+n 0 62 m 473.8898 62 l S
+n 0 0 m 473.8898 0 l S
+n 0 0 m 0 62 l S
+n 473.8898 0 m 473.8898 62 l S
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 626.3622 cm
+Q
+q
+1 0 0 1 62.69291 601.3622 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F3 12.5 Tf 15 TL (1. What the algorithm is - and what it is not) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 559.1622 cm
+q
+BT 1 0 0 1 0 27.6 Tm 12.4 TL /F2 9.6 Tf 0 0 0 rg (The proposed object is a ) Tj /F3 9.6 Tf (single portfolio-construction procedure) Tj /F2 9.6 Tf (. It is not a collection of unrelated feature-selection) Tj T* (rules. Its inputs are a current portfolio opportunity set, a candidate extension, and a finite history of realized returns. Its) Tj T* (output is a re-estimated portfolio in which the new opportunity is used only to the extent supported by the data.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 504.0622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 40 Tm /F2 9.6 Tf 12.4 TL (The procedure combines direct response-one portfolio learning, residual opportunity measurement relative to a baseline,) Tj T* (and spectral shrinkage. The empirical implementation below is a finite-rank, partially penalized variant. It is motivated by) Tj T* (the main learnability theory, but it does not automatically inherit every theorem proved for the isotropically penalized) Tj T* (infinite-dimensional estimator.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 486.1622 cm
+q
+BT 1 0 0 1 0 2.8 Tm 12.4 TL /F3 9.6 Tf 0 0 0 rg (Operational principle:) Tj /F2 9.6 Tf ( preserve a rich opportunity library -> remove redundancy -> shrink residual portfolio directions.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 461.1622 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F3 12.5 Tf 15 TL (2. Baseline and candidate opportunity set) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 418.9622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27.6 Tm /F2 9.6 Tf 12.4 TL (Let B be the T x p matrix of realized payoffs of portfolio directions already accepted as the baseline. Let X be a T x q) Tj T* (proposed extension: new characteristics, managed portfolios, or a new signal family. The response-one extension problem) Tj T* (is) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 402.4622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F4 8.5 Tf 11 TL 107.4449 0 Td (min_\(a,b\) ||1 - B a - X b||^2 / T + lambda ||b||^2) Tj T* -107.4449 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 385.0622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.8 Tm /F2 9.6 Tf 12.4 TL (Define P_B = B\(B'B\)^\(-1\)B', H = \(I-P_B\)X, and Sigma_perp = H'H/T. Profiling the baseline gives) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 368.5622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F4 8.5 Tf 11 TL 107.4449 0 Td (b_hat\(lambda\) = \(Sigma_perp + lambda I\)^\(-1\) H'1/T) Tj T* -107.4449 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 352.5622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F4 8.5 Tf 11 TL 97.24488 0 Td (a_hat\(lambda\) = a_hat_0 - \(B'B\)^\(-1\) B'X b_hat\(lambda\)) Tj T* -97.24488 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 310.3622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27.6 Tm /F2 9.6 Tf 12.4 TL (The second equation matters operationally. A new signal does not merely add a new position: it changes the hedge carried) Tj T* (by positions already in the portfolio. Freezing the old weights and adding a new sleeve solves a different economic) Tj T* (problem.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 285.3622 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F3 12.5 Tf 15 TL (3. The learnability gate is spectral, not binary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 255.5622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 15.2 Tm /F2 9.6 Tf 12.4 TL (Diagonalize the residual managed-payoff second moment as Sigma_perp = U diag\(mu_hat_1,...,mu_hat_q\) U'. Ridge) Tj T* (applies a direction-specific activation factor) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 239.0622 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.5 Tm /F4 8.5 Tf 11 TL 122.7449 0 Td (g_j\(lambda\) = mu_hat_j / \(mu_hat_j + lambda\)) Tj T* -122.7449 0 Td ET
+Q
+Q
+ 
+endstream
+endobj
+18 0 obj
+<<
+/Length 17894
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.466667 .466667 .46667 RG
+.4 w
+n 56.69291 806.4567 m 538.5827 806.4567 l S
+BT /F2 8 Tf 9.6 TL ET
+0 0 0 rg
+BT 1 0 0 1 56.69291 811.4567 Tm (PORTFOLIO - Research Note) Tj T* ET
+BT 1 0 0 1 486.3667 811.4567 Tm (September 2026) Tj T* ET
+BT /F2 8 Tf 9.6 TL ET
+BT 1 0 0 1 295.6378 22.67717 Tm (2) Tj T* ET
+Q
+q
+1 0 0 1 62.69291 556.3622 cm
+0 0 0 RG
+.7 w
+n 55 55 m 415 55 l S
+n 55 55 m 55 190 l S
+BT /F1 8 Tf 9.6 TL ET
+BT 1 0 0 1 156.3 8 Tm (Managed-payoff eigenvalue mu_j \(log scale\)) Tj T* ET
+q
+0 1 -1 0 10 122.5 cm
+BT 1 0 0 1 -69.36 0 Tm (Activation g_j = mu_j / \(mu_j + lambda\)) Tj T* ET
+Q
+Q
+.85 .85 .85 RG
+n 55 55 m 55 190 l S
+0 0 0 rg
+BT 1 0 0 1 46.996 43 Tm (1e-4) Tj T* ET
+.85 .85 .85 RG
+n 145 55 m 145 190 l S
+0 0 0 rg
+BT 1 0 0 1 136.996 43 Tm (1e-3) Tj T* ET
+.85 .85 .85 RG
+n 235 55 m 235 190 l S
+0 0 0 rg
+BT 1 0 0 1 226.996 43 Tm (1e-2) Tj T* ET
+.85 .85 .85 RG
+n 325 55 m 325 190 l S
+0 0 0 rg
+BT 1 0 0 1 316.996 43 Tm (1e-1) Tj T* ET
+.85 .85 .85 RG
+n 415 55 m 415 190 l S
+0 0 0 rg
+BT 1 0 0 1 408.328 43 Tm (1e0) Tj T* ET
+.9 .9 .9 RG
+n 55 55 m 415 55 l S
+0 0 0 rg
+BT 1 0 0 1 45.552 52 Tm (0) Tj T* ET
+.9 .9 .9 RG
+n 55 93.75 m 415 93.75 l S
+0 0 0 rg
+BT 1 0 0 1 34.432 90.75 Tm (0.25) Tj T* ET
+.9 .9 .9 RG
+n 55 132.5 m 415 132.5 l S
+0 0 0 rg
+BT 1 0 0 1 38.88 129.5 Tm (0.5) Tj T* ET
+.9 .9 .9 RG
+n 55 171.25 m 415 171.25 l S
+0 0 0 rg
+BT 1 0 0 1 34.432 168.25 Tm (0.75) Tj T* ET
+.9 .9 .9 RG
+n 55 190 m 415 190 l S
+0 0 0 rg
+BT 1 0 0 1 45.552 187 Tm (1) Tj T* ET
+.207843 .407843 .658824 RG
+1.6 w
+n 55 69.09091 m 57.01117 69.76406 l 59.02235 70.46583 l 61.03352 71.19711 l 63.04469 71.95877 l 65.05587 72.75166 l 67.06704 73.57663 l 69.07821 74.43452 l 71.08939 75.32611 l 73.10056 76.2522 l 75.11173 77.21353 l 77.12291 78.21079 l 79.13408 79.24465 l 81.14525 80.31571 l 83.15642 81.42453 l 85.1676 82.57159 l 87.17877 83.7573 l 89.18994 84.98201 l 91.20112 86.24597 l 93.21229 87.54934 l 95.22346 88.89218 l 97.23464 90.27447 l 99.24581 91.69605 l 101.257 93.15667 l 103.2682 94.65593 l 105.2793 96.19366 l 107.2905+ä
