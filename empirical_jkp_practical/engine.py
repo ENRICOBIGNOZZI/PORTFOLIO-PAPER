@@ -15,6 +15,7 @@ VALIDATION_START='1995-01-01'
 VALIDATION_END='2004-12-31'
 TEST_START='2005-01-01'
 DATA_START='1973-01-01'
+DATA_END='2025-12-31'
 TARGET_VOL=.10
 SLEEVE_GROSS_CAP=3.
 COV_SHRINK=.10
@@ -39,12 +40,12 @@ def load_public(raw: Path,weighting: str='vw_cap') -> tuple[pd.DataFrame,pd.Data
     if len(files)!=1:raise ValueError('Expected one official USA factor CSV')
     d=pd.read_csv(files[0],parse_dates=['date'])
     if d.duplicated(['date','name']).any():raise ValueError('Duplicate factor-date records')
-    # Official ret already includes the original-paper long-short orientation.
-    panel=d.pivot(index='date',columns='name',values='ret').sort_index().loc[DATA_START:]
+    # Official ret already includes original-paper long-short orientation.
+    panel=d.pivot(index='date',columns='name',values='ret').sort_index().loc[DATA_START:DATA_END]
     panel.index=panel.index.to_period('M').to_timestamp('M')
     expected=pd.period_range(panel.index.min(),panel.index.max(),freq='M').to_timestamp('M')
     panel=panel.reindex(expected)
-    metadata=(pd.read_csv(raw/'factor_details.csv').dropna(subset=['abr_jkp']).drop_duplicates('abr_jkp').set_index('abr_jkp'))
+    metadata=pd.read_csv(raw/'factor_details.csv').dropna(subset=['abr_jkp']).drop_duplicates('abr_jkp').set_index('abr_jkp')
     if not panel.columns.isin(metadata.index).all():raise ValueError('Unknown characteristic name')
     metadata=metadata.reindex(panel.columns).copy()
     metadata['group']=metadata['group'].str.lower().str.replace(' ','_',regex=False)
@@ -57,12 +58,11 @@ def load_public(raw: Path,weighting: str='vw_cap') -> tuple[pd.DataFrame,pd.Data
 def make_state(panel: pd.DataFrame,metadata: pd.DataFrame) -> pd.DataFrame:
     groups={g:panel.loc[:,metadata.index[metadata['group']==g]].mean(axis=1) for g in sorted(metadata['group'].unique())}
     themes=pd.DataFrame(groups,index=panel.index)
-    # Row dated t is selected BEFORE the return in month t is observed.
+    # Row t is selected BEFORE the return in month t is observed.
     return pd.concat([themes.rolling(12,min_periods=12).mean().shift(1).add_suffix('__mean12'),themes.rolling(12,min_periods=12).std(ddof=1).shift(1).add_suffix('__vol12')],axis=1)
 
 def prepare(raw: Path,weighting: str='vw_cap',universe: list[str]|None=None) -> StudyData:
-    panel,meta=load_public(raw,weighting)
-    cal=panel.loc[:CALIBRATION_END]
+    panel,meta=load_public(raw,weighting);cal=panel.loc[:CALIBRATION_END]
     eligible=cal.notna().all()&(cal.std()>1e-8)
     audit=pd.DataFrame({'characteristic':panel.columns,'calibration_complete':cal.notna().all().values,'calibration_nonconstant':(cal.std()>1e-8).values,'eligible':eligible.values})
     names=list(panel.columns[eligible]) if universe is None else universe
@@ -71,8 +71,7 @@ def prepare(raw: Path,weighting: str='vw_cap',universe: list[str]|None=None) -> 
     if panel.isna().any().any():raise ValueError('Missing return in preselected universe: explicit policy required')
     state=make_state(panel,meta).dropna();panel=panel.loc[state.index]
     xcal=state.loc[:CALIBRATION_END].to_numpy(float)
-    mu=xcal.mean(0);sd=np.maximum(xcal.std(0),1e-8)
-    ell=float(np.median(pdist((xcal-mu)/sd)))
+    mu=xcal.mean(0);sd=np.maximum(xcal.std(0),1e-8);ell=float(np.median(pdist((xcal-mu)/sd)))
     if not np.isfinite(ell) or ell<=0:raise ValueError('Degenerate state calibration')
     return StudyData(panel,state,meta,mu,sd,ell,audit)
 
@@ -81,7 +80,6 @@ def kernel(data: StudyData,kind: str='matern',state_columns: list[str]|None=None
     x=(data.state.to_numpy(float)[:,mask]-data.calibration_mean[mask])/data.calibration_sd[mask]
     if kind=='constant':return np.ones((len(x),len(x)))
     if x.shape[1]==0:raise ValueError('No state coordinates')
-    # Length scale and preprocessing frozen at pre-validation values.
     if rff_p is not None:
         if rff_p%2 or rff_p<2 or rff_p>1024:raise ValueError('Paired RFF P must be even and <=1024')
         rng=np.random.default_rng(seed);w=rng.normal(size=(512,data.state.shape[1]))
@@ -133,8 +131,7 @@ def rolling(data: StudyData,K: np.ndarray,*,window: int=120,assets: list[str]|No
         arrays['spectral_share']=np.zeros((len(ii),window));arrays['contributions']=np.zeros((len(ii),len(b),4))
         arrays['weights']=np.zeros((len(ii),len(columns),len(b)),dtype=np.float32)
     for row,t in enumerate(ii):
-        history=R[t-window:t]
-        G=K[t-window:t,t-window:t]*(history@history.T)/window
+        history=R[t-window:t];G=K[t-window:t,t-window:t]*(history@history.T)/window
         eig,U=eigh(G,check_finite=False,driver='evr')
         eig=np.where(eig>max(eig[-1],1e-30)*1e-12,eig,0)
         lam,actual=lambdas_for_complexity(eig,b);u1=U.sum(0)
