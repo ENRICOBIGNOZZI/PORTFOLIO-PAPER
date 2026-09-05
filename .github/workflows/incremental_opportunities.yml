@@ -1,0 +1,87 @@
+name: Incremental opportunity learning
+on:
+  push:
+    branches: [research/incremental-opportunity-learning]
+    paths:
+      - '.github/workflows/incremental_opportunities.yml'
+      - 'incremental_opportunities/core.py'
+      - 'incremental_opportunities/run.py'
+      - 'incremental_opportunities/recommend.py'
+      - 'incremental_opportunities/market_check.py'
+      - 'incremental_opportunities/tests/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: incremental-opportunity-research
+  cancel-in-progress: false
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r incremental_opportunities/requirements.txt
+      - name: Retrieve the same archived public-data snapshot
+        uses: actions/download-artifact@v4
+        with:
+          name: JKP-Practical-Replication
+          run-id: 33932671998
+          github-token: ${{ github.token }}
+          path: archived_snapshot
+      - name: Run unit tests and locked study
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p incremental_opportunities/results
+          python -m unittest discover -s incremental_opportunities/tests -v 2>&1 | tee incremental_opportunities/results/tests.txt
+          python -u incremental_opportunities/run.py --raw archived_snapshot/jkp_public_raw --out incremental_opportunities/results --reps 400 | tee incremental_opportunities/results/execution.txt
+          python incremental_opportunities/recommend.py --inputs incremental_opportunities/results/inputs --as-of 2025-12-31 --out incremental_opportunities/results/recommendation_research_Jan2026.json
+      - name: Secondary market-inclusive baseline diagnostic
+        run: python -u incremental_opportunities/market_check.py --out incremental_opportunities/results
+      - name: Reconcile output evidence
+        run: |
+          python - <<'PY'
+          import json, os
+          import numpy as np
+          import pandas as pd
+          from pathlib import Path
+          p=Path('incremental_opportunities/results')
+          ret=pd.read_csv(p/'oos_returns.csv',index_col=0)
+          summary=pd.read_csv(p/'summary.csv')
+          assert len(ret)==252 and ret.notna().all().all()
+          for r in summary.itertuples():
+              x=ret[f'{r.window}__{r.model}'];v=np.sqrt(12)*x.mean()/x.std(ddof=1)
+              np.testing.assert_allclose(v,r.sharpe,rtol=1e-8,atol=1e-10)
+          a=json.loads((p/'simulation_oracles.json').read_text())
+          np.testing.assert_array_equal(a['leading']['second_moment_diagonal'],a['trailing']['second_moment_diagonal'])
+          for z in a.values():
+              m=np.array(z['mean']);d=np.array(z['second_moment_diagonal']);q=1-np.sum(m*m/d)
+              np.testing.assert_allclose(12*(1-q)/q,1.,atol=1e-12)
+          m=json.loads((p/'manifest.json').read_text());m['github_commit']=os.environ['GITHUB_SHA'];m['github_run']=os.environ['GITHUB_RUN_ID'];m['output_reconciliation']='passed';(p/'manifest.json').write_text(json.dumps(m,indent=2))
+          print('All selected return series and the identical-spectrum oracle design reconciled.')
+          PY
+      - name: Publish small evidence tables to research branch
+        if: github.ref == 'refs/heads/research/incremental-opportunity-learning'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for path in summary.csv simulation_summary.csv simulation_curves.csv admission_log.csv selection_log.csv paired_inference.csv individual_diagnostics_not_selection.csv market_baseline_check.csv market_check_inference.csv market_source.json manifest.json simulation_oracles.json tests.txt; do
+            git add -f incremental_opportunities/results/$path
+          done
+          git diff --cached --quiet || git commit -m 'Record executed nested opportunity evidence [skip ci]'
+          git push origin HEAD:research/incremental-opportunity-learning
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Incremental-Opportunity-Replication
+          path: incremental_opportunities/
+          retention-days: 30

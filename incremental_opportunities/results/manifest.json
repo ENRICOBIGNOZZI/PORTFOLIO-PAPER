@@ -1,0 +1,34 @@
+{
+  "source": "Official JKP archived public characteristic-managed portfolios",
+  "original_sha256": {
+    "[usa]_[all_factors]_[monthly]_[vw_cap].csv": "b47dcdb54d208e458c35eb70cf350eb1897136a4c5bbad4fabaad62874d4c260",
+    "factor_details.csv": "b8e7dff81068d784840c3e23d2a6b9f465e3e61dbdcb0f5a62fb6d79bdc7890e"
+  },
+  "n_factors": 57,
+  "baseline": [
+    "market_equity",
+    "be_me",
+    "ret_12_1"
+  ],
+  "n_months": 252,
+  "library_publication_cutoff": 2004,
+  "calibration_end": "1994-12-31",
+  "tuning_months": 60,
+  "confirmation_months": 60,
+  "outer_months": 12,
+  "test_start": "2005-01-31",
+  "test_end": "2025-12-31",
+  "exploratory_reused_history": true,
+  "nested_classes": true,
+  "state_dimension": 0,
+  "no_stock_level_claim": true,
+  "finite_rank_only": true,
+  "python": "3.13.15",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "simulation_reps": 400,
+  "elapsed_seconds": 33.70825123786926,
+  "github_commit": "7204d15d314732dacf38f86d2224f20340009f20",
+  "github_run": "33966196416",
+  "output_reconciliation": "passed"
+}
