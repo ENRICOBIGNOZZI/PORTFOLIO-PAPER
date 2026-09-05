@@ -1,0 +1,105 @@
+{
+  "data_source": "Official Jensen-Kelly-Pedersen public USA factor returns",
+  "data_level": "characteristic-managed factor portfolios; NOT stock-level CTF",
+  "weighting": "capped value weighted",
+  "n_factors": 153,
+  "n_state": 14,
+  "calibration_end": "1994-12-31",
+  "validation_start": "1995-01-31",
+  "validation_end": "2004-12-31",
+  "test_start": "2005-01-31",
+  "test_end": "2025-12-31",
+  "test_months": 252,
+  "selected_compact_model": "compact_top8",
+  "validation_characteristic_rank_count": 153,
+  "n_selected_models": 47,
+  "n_path_points": 584,
+  "seed": 739,
+  "python": "3.13.15",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "elapsed_seconds": 81.72978234291077,
+  "no_stock_level_cost_claim": true,
+  "no_structural_b_r_estimate": true,
+  "source_provenance": {
+    "source": "Jensen, Kelly, Pedersen (2023), official jkpfactors.com public data",
+    "license": "CC BY-NC 4.0; research use only",
+    "stock_level_data": false,
+    "files": [
+      {
+        "url": "https://jkpfactors-data.s3.amazonaws.com/public/availability.json",
+        "path": "availability.json",
+        "sha256": "3a5647ad2c053c88410b4cdcddd0377405bb2cb30c3e3932905064d7ba322ca2",
+        "bytes": 287565,
+        "accessed_utc": "2026-09-05T00:21:23.030770+00:00",
+        "etag": "\"9fcc2ee284f9d14dfbf3546706bc8d4e\"",
+        "last_modified": "Tue, 04 Aug 2026 03:27:36 GMT"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/bkelly-lab/jkp-data/main/src/jkp/data/resources/factor_details.xlsx",
+        "path": "factor_details.xlsx",
+        "sha256": "4c579e4dcb93eed0897941d8f5f84e9cc784a2d3fc696be68a29a24e68206141",
+        "bytes": 40330,
+        "accessed_utc": "2026-09-05T00:21:23.193232+00:00",
+        "etag": "W/\"b280d461906bd78b7001b693a716dc8930fcaad4cc0991334eba13d4334135ca\"",
+        "last_modified": null
+      },
+      {
+        "url": "https://jkpfactors-data.s3.amazonaws.com/public/%5Busa%5D_%5Ball_factors%5D_%5Bmonthly%5D_%5Bvw_cap%5D.zip",
+        "path": "[usa]_[all_factors]_[monthly]_[vw_cap].zip",
+        "sha256": "f766aa2c7db1f97594f79f9063275161b7038e936db9ea960eac6eb7ec27ca80",
+        "bytes": 2674337,
+        "accessed_utc": "2026-09-05T00:21:23.873328+00:00",
+        "etag": "\"e599f2933b27422df2e4a6f67dbe5c80\"",
+        "last_modified": "Tue, 04 Aug 2026 05:30:09 GMT"
+      },
+      {
+        "url": "https://jkpfactors-data.s3.amazonaws.com/public/%5Busa%5D_%5Ball_factors%5D_%5Bmonthly%5D_%5Bvw%5D.zip",
+        "path": "[usa]_[all_factors]_[monthly]_[vw].zip",
+        "sha256": "e9ee9fd69fd138698eaf987c0e7c8058464ef32687f4c272f48757f532517537",
+        "bytes": 2663050,
+        "accessed_utc": "2026-09-05T00:21:24.541599+00:00",
+        "etag": "\"876c8d5c063fcf5b920776034e633431\"",
+        "last_modified": "Tue, 04 Aug 2026 05:30:09 GMT"
+      },
+      {
+        "url": "https://jkpfactors-data.s3.amazonaws.com/public/%5Busa%5D_%5Ball_factors%5D_%5Bmonthly%5D_%5Bew%5D.zip",
+        "path": "[usa]_[all_factors]_[monthly]_[ew].zip",
+        "sha256": "e1ec7105624e7b52c0d440386095c239034398f46ac9a90706f3193440fc3cd1",
+        "bytes": 2659718,
+        "accessed_utc": "2026-09-05T00:21:25.128555+00:00",
+        "etag": "\"35a25a923e42c4c6b989fa1cbb8222b8\"",
+        "last_modified": "Tue, 04 Aug 2026 05:30:09 GMT"
+      },
+      {
+        "url": "https://jkpfactors-data.s3.amazonaws.com/public/%5Busa%5D_%5Ball_themes%5D_%5Bmonthly%5D_%5Bvw_cap%5D.zip",
+        "path": "[usa]_[all_themes]_[monthly]_[vw_cap].zip",
+        "sha256": "9cf3bfa2a2941846e1ec5872dc5b613c9b40a0eed4b3fbc95e2979355ef93c53",
+        "bytes": 204444,
+        "accessed_utc": "2026-09-05T00:21:25.635813+00:00",
+        "etag": "\"8bb3cae54e089896753b9ed3fb0be46c\"",
+        "last_modified": "Tue, 04 Aug 2026 05:30:10 GMT"
+      },
+      {
+        "url": "https://jkpfactors-data.s3.amazonaws.com/public/%5Bgbr%5D_%5Ball_factors%5D_%5Bmonthly%5D_%5Bvw_cap%5D.zip",
+        "path": "[gbr]_[all_factors]_[monthly]_[vw_cap].zip",
+        "sha256": "fe56da14e1733227ee45d4b3a14886ab47c0fadfd20bd4ddfd48ae017f6e7e0f",
+        "bytes": 1235297,
+        "accessed_utc": "2026-09-05T00:21:26.146063+00:00",
+        "etag": "\"757205697d75fc5952e218494f4dd834\"",
+        "last_modified": "Tue, 04 Aug 2026 05:25:04 GMT"
+      },
+      {
+        "url": "https://jkpfactors-data.s3.amazonaws.com/public/%5Bjpn%5D_%5Ball_factors%5D_%5Bmonthly%5D_%5Bvw_cap%5D.zip",
+        "path": "[jpn]_[all_factors]_[monthly]_[vw_cap].zip",
+        "sha256": "69902544c8b1b349b049aca0305428b6f9be871c7c50232e0ba28bf1039502d4",
+        "bytes": 1207935,
+        "accessed_utc": "2026-09-05T00:21:26.652958+00:00",
+        "etag": "\"1adf21a0abdc63e73de74d0232e56250\"",
+        "last_modified": "Tue, 04 Aug 2026 05:26:31 GMT"
+      }
+    ]
+  },
+  "github_source_commit": "d9e6eb2702fadaa8d9bfb5d66f332c3e29d7073a",
+  "github_run_id": "33932671998"
+}

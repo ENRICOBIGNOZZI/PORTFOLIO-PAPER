@@ -1,0 +1,75 @@
+matern_full: completed in 0.85s
+constant_full: completed in 0.83s
+linear_full: completed in 0.83s
+rbf_full: completed in 0.83s
+drop_sleeves_intangibles: completed in 0.82s
+drop_sleeves_investment: completed in 0.82s
+drop_sleeves_momentum: completed in 0.83s
+drop_sleeves_new: completed in 0.83s
+drop_sleeves_profitability: completed in 0.82s
+drop_sleeves_trading_frictions: completed in 0.82s
+drop_sleeves_value: completed in 0.83s
+drop_state_intangibles: completed in 0.83s
+drop_state_investment: completed in 0.83s
+drop_state_momentum: completed in 0.83s
+drop_state_new: completed in 0.83s
+drop_state_profitability: completed in 0.83s
+drop_state_trading_frictions: completed in 0.83s
+drop_state_value: completed in 0.83s
+drop_state_all_mean_predictors: completed in 0.83s
+drop_state_all_vol_predictors: completed in 0.83s
+Validation characteristic ablations 25/153
+Validation characteristic ablations 50/153
+Validation characteristic ablations 75/153
+Validation characteristic ablations 100/153
+Validation characteristic ablations 125/153
+Validation characteristic ablations 150/153
+compact_top8: completed in 0.78s
+compact_top16: completed in 0.78s
+compact_top32: completed in 0.79s
+compact_top64: completed in 0.80s
+standalone_top16: completed in 0.78s
+published_by2004: completed in 0.79s
+finance_prior: completed in 0.77s
+drop_feature_ret_12_7: completed in 0.83s
+drop_feature_resff3_12_1: completed in 0.84s
+drop_feature_ival_me: completed in 0.83s
+drop_feature_eq_dur: completed in 0.83s
+drop_feature_fcf_me: completed in 0.83s
+drop_feature_ebitda_mev: completed in 0.83s
+drop_feature_rd_me: completed in 0.84s
+drop_feature_seas_2_5an: completed in 0.83s
+drop_feature_seas_6_10an: completed in 0.83s
+drop_feature_prc: completed in 0.83s
+matern_T60: completed in 0.41s
+matern_T240: completed in 2.27s
+matern_rff16: completed in 0.83s
+matern_rff64: completed in 0.83s
+matern_rff256: completed in 0.83s
+matern_rff1024: completed in 0.84s
+matern_vw: completed in 0.83s
+matern_ew: completed in 0.83s
+FINISHED {
+  "data_source": "Official Jensen-Kelly-Pedersen public USA factor returns",
+  "data_level": "characteristic-managed factor portfolios; NOT stock-level CTF",
+  "weighting": "capped value weighted",
+  "n_factors": 153,
+  "n_state": 14,
+  "calibration_end": "1994-12-31",
+  "validation_start": "1995-01-31",
+  "validation_end": "2004-12-31",
+  "test_start": "2005-01-31",
+  "test_end": "2025-12-31",
+  "test_months": 252,
+  "selected_compact_model": "compact_top8",
+  "validation_characteristic_rank_count": 153,
+  "n_selected_models": 47,
+  "n_path_points": 584,
+  "seed": 739,
+  "python": "3.13.15",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "elapsed_seconds": 81.72978234291077,
+  "no_stock_level_cost_claim": true,
+  "no_structural_b_r_estimate": true
+}

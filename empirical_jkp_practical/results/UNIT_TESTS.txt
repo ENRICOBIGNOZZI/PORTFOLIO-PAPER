@@ -1,0 +1,16 @@
+test_budget (test_engine.TestCausalEngine.test_budget) ... ok
+test_future_shock_weights (test_engine.TestCausalEngine.test_future_shock_weights) ... ok
+test_nested_rff (test_engine.TestCausalEngine.test_nested_rff) ... ok
+test_no_test_selection (test_engine.TestCausalEngine.test_no_test_selection) ... ok
+test_primal_dual (test_engine.TestCausalEngine.test_primal_dual) ... ok
+test_rank_cap (test_engine.TestCausalEngine.test_rank_cap) ... ok
+test_rff_determinism (test_engine.TestCausalEngine.test_rff_determinism) ... ok
+test_scaling_matches_dense_risk (test_engine.TestCausalEngine.test_scaling_matches_dense_risk) ... ok
+test_source_fields (test_engine.TestCausalEngine.test_source_fields) ... ok
+test_state_lag (test_engine.TestCausalEngine.test_state_lag) ... ok
+test_truncation (test_engine.TestCausalEngine.test_truncation) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.964s
+
+OK
