@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "selected_return_series_reconciled": 47,
+  "test_months": 252,
+  "unique_feature_ablations": 153,
+  "spectral_contributions_reconcile": true,
+  "factor_sleeve_cap_respected": true,
+  "compact_choice_uses_validation": true,
+  "archived_narrative_snapshot_verified": true
+}

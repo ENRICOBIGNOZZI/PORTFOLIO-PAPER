@@ -1,0 +1,9 @@
+characteristic,description,group,citation,publication_year,validation_contribution_sr,validation_contribution_sr_matched_C,validation_standalone_sr,drop_selected_C,validation_joint_rank,validation_standalone_rank
+ret_12_7,Price momentum t-12 to t-7,new,Novy-Marx (2012),2012.0,0.026201600131147695,0.026201600131147695,0.46875876754603263,48.0,1,52
+resff3_12_1,Residual momentum t-12 to t-1,momentum,Blitz Huij and Martens (2011),2011.0,0.018654423631726424,0.018654423631726424,1.2756788155353938,48.0,2,4
+ival_me,Intrinsic value-to-market,value,Frankel and Lee (1998),1998.0,0.015493480569527818,0.015493480569527818,0.6554789332664929,48.0,3,28
+eq_dur,Equity duration,value,Dechow Sloan and Soliman (2004),2004.0,0.01345032536828672,0.01345032536828672,0.49756231223087416,48.0,4,43
+fcf_me,Free cash flow-to-price,value,Lakonishok Shleifer and Vishny (1994),1994.0,0.012760621926042659,0.012760621926042659,0.7883093610075527,48.0,5,16
+ebitda_mev,Ebitda-to-market enterprise value,value,Loughran and Wellman (2011),2011.0,0.012496585994009601,0.012496585994009601,0.420406117316747,48.0,6,61
+rd_me,R&D-to-market,intangibles,Chan Lakonishok and Sougiannis (2001),2001.0,0.01242353670128682,0.01242353670128682,0.6341882730451385,48.0,7,29
+seas_2_5an,"Years 2-5 lagged returns, annual",intangibles,Heston and Sadka (2008),2008.0,0.011222725625684271,0.011222725625684271,1.057034781588756,48.0,8,10

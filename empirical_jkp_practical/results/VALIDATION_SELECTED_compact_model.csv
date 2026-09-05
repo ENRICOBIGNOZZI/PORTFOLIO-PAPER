@@ -1,0 +1,2 @@
+model,n_characteristics,n_state,window,selected_budget,validation_sharpe,n_months,sharpe,mean,volatility,ce_gamma5,max_drawdown,mean_complexity,mean_lambda,native_loss,monthly_sleeve_reallocation,mean_sleeve_gross
+compact_top8,8,8,120,4.0,1.583242721325889,252,0.49516218536793516,0.046935918307283345,0.09478897963988737,0.024473541654355887,-0.1971041457060021,4.0,0.0017073590038662386,0.9848236638739528,0.4424971517171958,2.1881654411839864
