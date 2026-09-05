@@ -1,0 +1,99 @@
+name: JKP practical evidence
+on:
+  push:
+    branches: [research/jkp-practical-learnability]
+    paths:
+      - '.github/workflows/jkp_practical_study.yml'
+      - 'empirical_jkp_practical/*.py'
+      - 'empirical_jkp_practical/tests/*.py'
+      - 'empirical_jkp_practical/requirements.txt'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: jkp-practical-research
+  cancel-in-progress: false
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r empirical_jkp_practical/requirements.txt
+      - name: Causal and algebraic tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p empirical_jkp_practical/results
+          python -m unittest discover -s empirical_jkp_practical/tests -v 2>&1 | tee empirical_jkp_practical/results/UNIT_TESTS.txt
+      - name: Download official public research data
+        run: python empirical_jkp_practical/fetch_public.py --out jkp_public_raw
+      - name: Execute all locked experiments
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u empirical_jkp_practical/run_study.py --raw jkp_public_raw --out empirical_jkp_practical/results | tee empirical_jkp_practical/results/EXECUTION_LOG.txt
+          python empirical_jkp_practical/verify_results.py --out empirical_jkp_practical/results
+          python empirical_jkp_practical/build_report.py --out empirical_jkp_practical/results
+      - name: Record source revision and render PDF
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          import fitz
+          from PIL import Image, ImageDraw
+          out=Path('empirical_jkp_practical/results')
+          p=out/'manifest.json';m=json.loads(p.read_text());m['github_source_commit']=os.environ['GITHUB_SHA'];m['github_run_id']=os.environ['GITHUB_RUN_ID'];p.write_text(json.dumps(m,indent=2))
+          doc=fitz.open(out/'JKP_Practical_Learnability.pdf')
+          assert 1 <= len(doc) <= 30
+          images=[]
+          for i,page in enumerate(doc):
+              text=page.get_text();assert len(text)>100
+              assert '\ufffd' not in text
+              pix=page.get_pixmap(matrix=fitz.Matrix(1,1))
+              im=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
+              im.thumbnail((230,326));canvas=Image.new('RGB',(242,352),'white');canvas.paste(im,(6,18));ImageDraw.Draw(canvas).text((6,3),str(i+1),fill='black');images.append(canvas)
+          contact=Image.new('RGB',(242*4,352*((len(images)+3)//4)),(210,210,210))
+          for i,im in enumerate(images):contact.paste(im,((i%4)*242,(i//4)*352))
+          contact.save(out/'PDF_PREFLIGHT.png')
+          (out/'PDF_PREFLIGHT.json').write_text(json.dumps({'pages':len(doc),'rendered_pages':len(images),'nonempty_text_on_every_page':True,'replacement_glyphs':False},indent=2))
+          print('Rendered',len(doc),'pages')
+          PY
+      - name: Publish derived evidence only to the research branch
+        if: github.ref == 'refs/heads/research/jkp-practical-learnability'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f empirical_jkp_practical/results
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add executed public-JKP evidence and verified research report [skip ci]'
+            git push origin HEAD:research/jkp-practical-learnability
+          fi
+      - name: Package replication inputs and code
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          dest=Path('JKP_Practical_Replication');dest.mkdir(exist_ok=True)
+          shutil.copytree('empirical_jkp_practical',dest/'empirical_jkp_practical',dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
+          if Path('jkp_public_raw').exists():
+              shutil.copytree('jkp_public_raw',dest/'jkp_public_raw',dirs_exist_ok=True,ignore=shutil.ignore_patterns('repository'))
+          (dest/'README.txt').write_text('Read empirical_jkp_practical/README.md and results/REPORT.md. Public JKP characteristic portfolios only, not licensed stock-level CTF. Raw data CC BY-NC 4.0, non-commercial research. Reproduce from the archived raw files to retain this vintage. No live trading.\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: JKP-Practical-Replication
+          path: JKP_Practical_Replication/
+          retention-days: 30
+          if-no-files-found: error
