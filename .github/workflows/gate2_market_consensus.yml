@@ -1,0 +1,64 @@
+name: Gate2 market-consensus stress
+
+on:
+  push:
+    branches: [research/gate2-global-stress]
+    paths:
+      - 'global_gate_study/run_market_consensus.py'
+      - '.github/workflows/gate2_market_consensus.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: gate2-market-consensus
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --upgrade pip numpy pandas requests scipy
+      - run: python -m py_compile global_gate_study/run_market_consensus.py
+      - name: Execute
+        run: |
+          set -euo pipefail
+          mkdir -p global_gate_study/raw_market_consensus global_gate_study/market_consensus_results
+          cd global_gate_study
+          python -u run_market_consensus.py --raw raw_market_consensus --out market_consensus_results | tee market_consensus_results/execution.log
+      - name: Record id
+        run: echo "$GITHUB_RUN_ID" > global_gate_study/market_consensus_results/github_run_id.txt
+      - name: Reconcile
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          d=pd.read_csv('global_gate_study/market_consensus_results/market_consensus_results.csv');assert not d.empty
+          assert {'current','gate2','cons_mean','cons_stack','stack3'}<=set(d.selector)
+          n=len(d[d.selector.eq('current')]);assert len(d)==n*d.selector.nunique();print('reconciled',n)
+          PY
+      - name: Publish
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for f in MARKET_CONSENSUS_REPORT.md market_consensus_results.csv market_consensus_annual.csv market_consensus_skipped.csv market_consensus_manifest.csv execution.log github_run_id.txt; do
+            git add -f global_gate_study/market_consensus_results/$f
+          done
+          git diff --cached --quiet || git commit -m 'Record market-consensus Gate evidence [skip ci]'
+          git push origin HEAD:research/gate2-global-stress
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Gate2-Market-Consensus
+          path: global_gate_study/market_consensus_results/
+          retention-days: 30
