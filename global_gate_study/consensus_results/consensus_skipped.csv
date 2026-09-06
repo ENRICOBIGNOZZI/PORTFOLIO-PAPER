@@ -1,0 +1,19 @@
+dataset,reason
+emerging_vwcap_T240,ValueError('insufficient history')
+frontier_vwcap,missing 2 frozen factors
+aus_vwcap_T120,ValueError('insufficient history')
+aus_vwcap_T240,ValueError('insufficient history')
+che_vwcap_T240,ValueError('insufficient history')
+hkg_vwcap_T240,ValueError('insufficient history')
+nld_vwcap_T120,ValueError('insufficient history')
+nld_vwcap_T240,ValueError('insufficient history')
+swe_vwcap_T240,ValueError('insufficient history')
+ita_vwcap,usable suffix only 224 months
+esp_vwcap,usable suffix only 224 months
+sgp_vwcap,usable suffix only 101 months
+kor_vwcap,usable suffix only 176 months
+bra_vwcap,usable suffix only 212 months
+ind_vwcap_T120,ValueError('insufficient history')
+ind_vwcap_T240,ValueError('insufficient history')
+chn_vwcap,usable suffix only 188 months
+zaf_vwcap,usable suffix only 230 months
