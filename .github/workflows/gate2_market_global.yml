@@ -1,0 +1,66 @@
+name: Gate2 market-global stress
+
+on:
+  push:
+    branches: [research/gate2-global-stress]
+    paths:
+      - 'global_gate_study/run_market_baseline.py'
+      - '.github/workflows/gate2_market_global.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: gate2-market-global
+  cancel-in-progress: false
+
+jobs:
+  market-global:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --upgrade pip numpy pandas requests scipy
+      - run: python -m py_compile global_gate_study/run_market_baseline.py
+      - name: Run market-inclusive global study
+        run: |
+          set -euo pipefail
+          mkdir -p global_gate_study/raw_market global_gate_study/market_results
+          cd global_gate_study
+          python -u run_market_baseline.py --raw raw_market --out market_results | tee market_results/execution.log
+      - name: Record run id
+        run: echo "$GITHUB_RUN_ID" > global_gate_study/market_results/github_run_id.txt
+      - name: Reconcile
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          p='global_gate_study/market_results/market_global_selector_results.csv'
+          d=pd.read_csv(p);assert not d.empty
+          assert {'current','gate2','mean3','stack2','stack3'}<=set(d.selector)
+          n=len(d[d.selector.eq('current')]);assert len(d)==n*d.selector.nunique()
+          print('reconciled',n,'market-inclusive comparisons')
+          PY
+      - name: Publish evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for f in MARKET_GLOBAL_REPORT.md market_global_selector_results.csv market_global_annual.csv market_global_skipped.csv market_global_manifest.csv execution.log github_run_id.txt; do
+            git add -f global_gate_study/market_results/$f
+          done
+          git diff --cached --quiet || git commit -m 'Record market-inclusive global Gate evidence [skip ci]'
+          git push origin HEAD:research/gate2-global-stress
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Gate2-Market-Global
+          path: global_gate_study/market_results/
+          retention-days: 30
