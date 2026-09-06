@@ -87,11 +87,13 @@ jobs:
           assert r[['gainQ','sr','meanC']].notna().all().all()
           print('reconciled', n, 'dataset-window comparisons and', r.selector.nunique(), 'selectors')
           PY
+      - name: Record workflow run id
+        run: echo "$GITHUB_RUN_ID" > global_gate_study/results/github_run_id.txt
       - name: Publish compact evidence on research branch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          for f in REPORT.md selector_aggregate.csv global_selector_results.csv annual_choices.csv dataset_manifest.csv frozen_common40.csv skipped.csv wrds_ctf_probe.json execution.log; do
+          for f in REPORT.md selector_aggregate.csv global_selector_results.csv annual_choices.csv dataset_manifest.csv frozen_common40.csv skipped.csv wrds_ctf_probe.json execution.log github_run_id.txt; do
             git add -f global_gate_study/results/$f
           done
           git diff --cached --quiet || git commit -m 'Record global Gate stress evidence [skip ci]'
