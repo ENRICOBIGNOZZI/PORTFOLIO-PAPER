@@ -1,0 +1,19 @@
+dataset,reason
+emerging_market_vwcap_T240,ValueError('insufficient history')
+frontier,missing 2 frozen factors
+aus_market_vwcap_T120,ValueError('insufficient history')
+aus_market_vwcap_T240,ValueError('insufficient history')
+che_market_vwcap_T240,ValueError('insufficient history')
+hkg_market_vwcap_T240,ValueError('insufficient history')
+nld_market_vwcap_T120,ValueError('insufficient history')
+nld_market_vwcap_T240,ValueError('insufficient history')
+swe_market_vwcap_T240,ValueError('insufficient history')
+ita,usable suffix 224 months
+esp,usable suffix 224 months
+sgp,usable suffix 101 months
+kor,usable suffix 176 months
+bra,usable suffix 212 months
+ind_market_vwcap_T120,ValueError('insufficient history')
+ind_market_vwcap_T240,ValueError('insufficient history')
+chn,usable suffix 188 months
+zaf,usable suffix 230 months
