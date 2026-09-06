@@ -1,0 +1,69 @@
+name: Gate2 consensus stress
+
+on:
+  push:
+    branches: [research/gate2-global-stress]
+    paths:
+      - 'global_gate_study/run_consensus.py'
+      - '.github/workflows/gate2_consensus_stress.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: gate2-consensus-stress
+  cancel-in-progress: false
+
+jobs:
+  consensus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --upgrade pip numpy pandas requests scipy
+      - name: Compile
+        run: python -m py_compile global_gate_study/run_consensus.py
+      - name: Run conservative-to-consensus test
+        run: |
+          set -euo pipefail
+          mkdir -p global_gate_study/raw_consensus global_gate_study/consensus_results
+          cd global_gate_study
+          python -u run_consensus.py --raw raw_consensus --out consensus_results | tee consensus_results/execution.log
+      - name: Record run id
+        run: echo "$GITHUB_RUN_ID" > global_gate_study/consensus_results/github_run_id.txt
+      - name: Reconcile
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          p='global_gate_study/consensus_results/consensus_selector_results.csv'
+          d=pd.read_csv(p)
+          assert not d.empty
+          assert {'current','gate2','median3','cons_mean','cons_stack','stack3'} <= set(d.selector)
+          n=len(d[d.selector.eq('current')])
+          assert len(d)==n*d.selector.nunique()
+          print('reconciled',n,'dataset-window comparisons')
+          PY
+      - name: Publish evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for f in CONSENSUS_REPORT.md consensus_selector_results.csv consensus_annual.csv consensus_skipped.csv consensus_manifest.csv consensus_aggregate.csv execution.log github_run_id.txt; do
+            git add -f global_gate_study/consensus_results/$f
+          done
+          git diff --cached --quiet || git commit -m 'Record consensus Gate evidence [skip ci]'
+          git push origin HEAD:research/gate2-global-stress
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Gate2-Consensus-Stress
+          path: global_gate_study/consensus_results/
+          retention-days: 30
